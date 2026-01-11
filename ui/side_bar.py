@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QFrame, QVBoxLayout
 
 from config import SIDE_BAR_WIDTH, SIDE_BAR_COLOR
+from ui.file_bar import FileBar
 from ui.pen_bar import PenBar
 from ui.tool_bar import ToolBar
 
@@ -15,3 +16,4 @@ class SideBar(QFrame):
         self._layout.addWidget(ToolBar(self._event_bus))
         self._layout.addWidget(PenBar(self._event_bus))
         self._layout.addStretch()
+        self._layout.addWidget(FileBar(event_bus))

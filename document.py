@@ -2,7 +2,7 @@ from event.shape_add import ShapeAddEvent
 from event.shape_remove import ShapeRemoveEvent
 
 
-class Document:
+class Document():
     def __init__(self, event_bus):
         self._shapes = []
         self._event_bus = event_bus
@@ -16,3 +16,13 @@ class Document:
         if shape in self._shapes:
             self._shapes.remove(shape)
             self._event_bus.call_event(ShapeRemoveEvent(shape))
+
+    def get_shapes(self):
+        return self._shapes
+
+    def set_shapes(self, shapes):
+        for shape in self._shapes:
+            self._event_bus.call_event(ShapeRemoveEvent(shape))
+        self._shapes = shapes
+        for shape in self._shapes:
+            self._event_bus.call_event(ShapeAddEvent(shape))

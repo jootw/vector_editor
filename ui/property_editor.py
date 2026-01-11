@@ -81,10 +81,10 @@ class PropertyEditor(QTreeWidget):
             combo.setCurrentText(value.name)
 
             # При изменении сохраняем СТРОКУ (имя Enum)
-            def on_enum_change(txt):
-                callback(txt)  # txt будет равен, например, "SOLID"
+            def on_enum_change(index):
+                callback(combo.itemData(index))  # txt будет равен, например, "SOLID"
 
-            combo.currentTextChanged.connect(on_enum_change)
+            combo.currentIndexChanged.connect(on_enum_change)
             return combo
 
         # B. Bool (CheckBox)
@@ -97,7 +97,7 @@ class PropertyEditor(QTreeWidget):
         # C. Integer (SpinBox)
         elif isinstance(value, int):
             spin = QSpinBox()
-            spin.setRange(-9999999, 9999999)
+            spin.setRange(0, 9999999)
             spin.setValue(value)
             spin.valueChanged.connect(callback)
             return spin
@@ -105,7 +105,7 @@ class PropertyEditor(QTreeWidget):
         # D. Float (DoubleSpinBox)
         elif isinstance(value, float):
             spin = QDoubleSpinBox()
-            spin.setRange(-9999999.0, 9999999.0)
+            spin.setRange(0.0, 9999999.0)
             spin.setValue(value)
             spin.valueChanged.connect(callback)
             return spin

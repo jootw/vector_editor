@@ -3,7 +3,7 @@ import uuid
 from PySide6.QtWidgets import QAbstractGraphicsShapeItem
 
 from pen.pen import Pen
-from store.serializable import Serializable
+from storage.serializable import Serializable
 
 
 class Shape(Serializable):
@@ -31,8 +31,7 @@ class Shape(Serializable):
         return QAbstractGraphicsShapeItem()
 
     def to_dict(self):
-        return {
-            "id": self._uid,
-            "type": self._shape_type,
-            "pen": Pen.to_dict(self._pen)
-        }
+        serialized = super().to_dict()
+        serialized["id"] = self._uid
+        serialized["pen"] = Pen.to_dict(self._pen)
+        return serialized

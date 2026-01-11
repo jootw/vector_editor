@@ -22,15 +22,15 @@ class EllipseShape(Shape):
         serialized = super().to_dict()
         serialized["first_point"] = self._first_point.to_dict()
         serialized["second_point"] = self._second_point.to_dict()
+        return serialized
 
     @staticmethod
     def from_dict(serialized):
-        deserialized = super().from_dict(serialized)
         return EllipseShape(
             Point2f.from_dict(serialized["first_point"]),
             Point2f.from_dict(serialized["second_point"]),
-            deserialized.get_pen(),
-            deserialized.get_id()
+            Pen.from_dict(serialized["pen"]),
+            serialized["id"]
         )
 
     def _to_qt_shape(self):

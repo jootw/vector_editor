@@ -13,4 +13,4 @@ class PenManager:
         return self._current_pen
 
     def _handle_request_pen_change(self, event):
-        self._current_pen = Pen.from_dict(event.get_pen())
+        self._current_pen = Pen.from_tree_data(event.get_pen())

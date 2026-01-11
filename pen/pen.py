@@ -2,7 +2,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPen, QColor
 
 from pen.pen_style import PenStyle
-from store.serializable import Serializable
+from storage.serializable import Serializable
 
 
 class Pen(Serializable):
@@ -31,7 +31,7 @@ class Pen(Serializable):
         return {
             "color": self.get_color(),
             "width": self.get_width(),
-            "style": self.get_style()
+            "style": self.get_style().name
         }
 
     @staticmethod
@@ -40,4 +40,19 @@ class Pen(Serializable):
             serialized["color"],
             serialized["width"],
             PenStyle[serialized["style"]]
+        )
+
+    def to_tree_data(self):
+        return {
+            "color": self.get_color(),
+            "width": self.get_width(),
+            "style": self.get_style()
+        }
+
+    @staticmethod
+    def from_tree_data(serialized):
+        return Pen(
+            serialized["color"],
+            serialized["width"],
+            serialized["style"]
         )

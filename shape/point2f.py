@@ -1,4 +1,4 @@
-from store.serializable import Serializable
+from storage.serializable import Serializable
 
 
 class Point2f(Serializable):
