@@ -32,14 +32,22 @@ class VectorEditor(QApplication):
         self._tool_manager = ToolManager(self._event_bus, self._tool_registry)
         self._history_manager = HistoryManager(self._event_bus, self._tool_manager)
 
-        self._tool_registry.register("line", LineTool(self._document, self._history_manager, self._canvas, self._pen_manager))
-        self._tool_registry.register("rect", RectTool(self._document, self._history_manager, self._canvas, self._pen_manager))
-        self._tool_registry.register("ellipse", EllipseTool(self._document, self._history_manager, self._canvas, self._pen_manager))
+        self._tool_registry.register("line", LineTool(
+            self._document, self._history_manager,
+            self._canvas, self._pen_manager
+        ))
+        self._tool_registry.register("rect", RectTool(
+            self._document, self._history_manager,
+            self._canvas, self._pen_manager
+        ))
+        self._tool_registry.register("ellipse", EllipseTool(
+            self._document, self._history_manager,
+            self._canvas, self._pen_manager
+        ))
 
         self._storage_manager = StorageManager(self._event_bus, self._document)
 
         if len(args) > 1:
             self._event_bus.call_event(OpenFileEvent(args[1]))
-
 
         self._window.show()
