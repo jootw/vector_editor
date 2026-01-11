@@ -1,9 +1,7 @@
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPainter, QAction, QPen
+from PySide6.QtGui import QPainter
 from PySide6.QtWidgets import QGraphicsView, QGraphicsScene
 
-from action.action_stack import ActionStack
-from config import CANVAS_INITIAL_COLOR
 from event.canvas_mouse_click import CanvasMousePressEvent
 from event.canvas_mouse_move import CanvasMouseMoveEvent
 from event.canvas_mouse_release import CanvasMouseReleaseEvent
@@ -70,91 +68,3 @@ class VectorCanvas(QGraphicsView):
 
     def _handle_shape_remove(self, event):
         self.remove_shape(event.get_shape())
-
-# class VectorEditorCanvas(QGraphicsView):
-#     def __init__(self, window):
-#         super().__init__()
-#
-#         self._window = window
-#         self._tool = None
-#         self._actionStack = ActionStack()
-#         self.color = CANVAS_INITIAL_COLOR
-#
-#         self._setupScene()
-#         self._setupMenubar()
-#         self._setupProperties()
-#
-#     def _setupScene(self):
-#         self.scene = QGraphicsScene()
-#         self.setScene(self.scene)
-#         self.scene.setSceneRect(0, 0, 200, 200)
-#
-#     def _setupMenubar(self):
-#         undoAction = QAction("Undo", self._window)
-#         undoAction.setShortcut("Ctrl + Z")
-#         undoAction.setStatusTip("Undo last change")
-#         undoAction.triggered.connect(self._actionStack.undo)
-#         redoAction = QAction("Redo", self._window)
-#         redoAction.setShortcut("Ctrl + Shift + Z")
-#         redoAction.setStatusTip("Redo last undo")
-#         redoAction.triggered.connect(self._actionStack.redo)
-#
-#         menu = self._window.menubar.addMenu("&Canvas")
-#         menu.addAction(undoAction)
-#         menu.addAction(redoAction)
-#
-#     def _setupProperties(self):
-#         self.setRenderHints(self.renderHints() | QPainter.RenderHint.Antialiasing)
-#         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
-#
-#         self.setMouseTracking(True)
-#
-#     def do(self, action):
-#         self._actionStack.do(action)
-#
-#     def undo(self):
-#         if self._tool.can_undo():
-#             self._actionStack.undo()
-#
-#     def redo(self):
-#         if self._tool.can_redo():
-#             self._actionStack.redo()
-#
-#     def resizeEvent(self, event, /):
-#         super().resizeEvent(event)
-#         self.fitInView(self.scene.sceneRect(), Qt.AspectRatioMode.KeepAspectRatio)
-#
-#     def setTool(self, tool):
-#         if self._tool is not None:
-#             self._tool.stop()
-#         self._tool = tool
-#
-#     def setColor(self, color):
-#         self._window.picker.setStyleSheet(f"background-color: {color.name()}")
-#         self.color = color
-#
-#     def getPaintColor(self):
-#         return self.color
-#
-#     def mousePressEvent(self, event, /):
-#         if self._tool is not None:
-#             self._tool.mousePressEvent(event)
-#         super().mousePressEvent(event)
-#
-#     def mouseReleaseEvent(self, event, /):
-#         if self._tool is not None:
-#             self._tool.mouseReleaseEvent(event)
-#         super().mouseReleaseEvent(event)
-#
-#     def mouseMoveEvent(self, event, /):
-#         pos = self.mapToScene(event.pos())
-#         x, y = pos.x(), pos.y()
-#         self._window.statusBar().showMessage(f"Cursor pos: {int(x)} {int(y)}")
-#         if self._tool is not None:
-#             self._tool.mouseMoveEvent(event)
-#         super().mouseMoveEvent(event)
-#
-#     def mouseDoubleClickEvent(self, event, /):
-#         if self._tool is not None:
-#             self._tool.mouseDoubleClickEvent(event)
-#         super().mouseDoubleClickEvent(event)

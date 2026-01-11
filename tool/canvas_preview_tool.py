@@ -8,6 +8,13 @@ class CanvasPreviewTool(Tool):
         self._pen_manager = pen_manager
         self._preview_shape = None
 
+    def can_undo(self):
+        return True
+        return self._preview_shape is None
+
+    def can_redo(self):
+        return self.can_undo()
+
     def _set_preview(self, shape):
         qt_shape = shape.to_qt_shape() if shape is not None else None
         if self._preview_shape is not None:

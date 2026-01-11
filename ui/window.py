@@ -2,6 +2,8 @@ from PySide6.QtGui import QCloseEvent, QAction
 from PySide6.QtWidgets import QMainWindow, QMessageBox, QWidget, QHBoxLayout
 
 from config import WINDOW_WIDTH, WINDOW_HEIGHT
+from event.request_redo_event import RequestRedoEvent
+from event.request_undo_event import RequestUndoEvent
 from ui.side_bar import SideBar
 
 
@@ -28,11 +30,6 @@ class VectorEditorWindow(QMainWindow):
 
         side_bar = SideBar(self._event_bus)
 
-        # picker = QPushButton()
-        # picker.setStyleSheet(f"background-color: {CANVAS_INITIAL_COLOR.name()}")
-        # picker.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        # picker.clicked.connect(lambda: self.canvas.setColor(QColorDialog().getColor()))
-
         layout.addWidget(side_bar)
         layout.addWidget(self._canvas)
 
@@ -48,24 +45,22 @@ class VectorEditorWindow(QMainWindow):
         exitAction.setStatusTip("Close the application")
         exitAction.triggered.connect(self.close)
 
-        # undoAction = QAction("Undo", self)
-        # undoAction.setShortcut("Ctrl + Z")
-        # undoAction.setStatusTip("Undo last change")
-        # undoAction.triggered.connect(self.canvas.undo())
-
-        # redoAction = QAction("Redo", self)
-        # redoAction.setShortcut("Ctrl + Shift + Z")
-        # redoAction.setStatusTip("Redo last undo")
-        # redoAction.triggered.connect(self.canvas.redo())
-
         fileMenu = self.menubar.addMenu("&File")
         fileMenu.addAction(exitAction)
 
-    # def changeTool(self, tool, clicked):
-    #     for button in self._toolButtons:
-    #         button.setChecked(False)
-    #     clicked.setChecked(True)
-    #     self.canvas.setTool(tool)
+        undoAction = QAction("Undo", self)
+        undoAction.setShortcut("Ctrl + Z")
+        undoAction.setStatusTip("Undo last change")
+        undoAction.triggered.connect(lambda: self._event_bus.call_event(RequestUndoEvent()))
+
+        redoAction = QAction("Redo", self)
+        redoAction.setShortcut("Ctrl + Shift + Z")
+        redoAction.setStatusTip("Redo last undo")
+        redoAction.triggered.connect(lambda: self._event_bus.call_event(RequestRedoEvent()))
+
+        fileMenu = self.menubar.addMenu("&Actions")
+        fileMenu.addAction(undoAction)
+        fileMenu.addAction(redoAction)
 
     def closeEvent(self, event: QCloseEvent):
         reply = QMessageBox.question(

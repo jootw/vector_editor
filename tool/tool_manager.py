@@ -16,6 +16,16 @@ class ToolManager:
         self._event_bus.start_listening(CanvasMouseReleaseEvent, self._handle_canvas_mouse_release)
         self._event_bus.start_listening(CanvasMouseMoveEvent, self._handle_canvas_mouse_move)
 
+    def can_undo(self):
+        if self._current_tool is None:
+            return True
+        return self._current_tool.can_undo()
+
+    def can_redo(self):
+        if self._current_tool is None:
+            return True
+        return self._current_tool.can_redo()
+
     def _handle_request_tool_change(self, event):
         tool_id = event.get_tool_id()
         if self._current_tool is None or self._current_tool.get_tool_id != tool_id:
