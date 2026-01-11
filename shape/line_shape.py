@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QGraphicsLineItem
 
-from shape.pen import Pen
+from pen.pen import Pen
 from shape.point2f import Point2f
 from shape.shape import Shape
 

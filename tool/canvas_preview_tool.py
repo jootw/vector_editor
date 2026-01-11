@@ -2,9 +2,10 @@ from tool.tool import Tool
 
 
 class CanvasPreviewTool(Tool):
-    def __init__(self, document, history_manager, canvas, tool_id):
+    def __init__(self, document, history_manager, canvas, pen_manager, tool_id):
         super().__init__(document, history_manager, tool_id)
         self._canvas = canvas
+        self._pen_manager = pen_manager
         self._preview_shape = None
 
     def _set_preview(self, shape):

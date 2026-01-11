@@ -1,5 +1,5 @@
 from event.request_pen_change import RequestPenChangeEvent
-from shape.pen import Pen
+from pen.pen import Pen
 from ui.property_editor import PropertyEditor
 
 

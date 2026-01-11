@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QApplication
 from action.action_stack import ActionStack
 from document import Document
 from event.event_bus import EventBus
+from pen.pen_manager import PenManager
 from registry import Registry
 from tool.ellipse_tool import EllipseTool
 from tool.line_tool import LineTool
@@ -24,10 +25,12 @@ class VectorEditor(QApplication):
         self._canvas = VectorCanvas(self._event_bus)
         self._window = VectorEditorWindow(self._event_bus, self._canvas)
 
+        self._pen_manager = PenManager(self._event_bus)
+
         self._tool_registry = Registry()
-        self._tool_registry.register("line", LineTool(self._document, self._history_manager, self._canvas))
-        self._tool_registry.register("rect", RectTool(self._document, self._history_manager, self._canvas))
-        self._tool_registry.register("ellipse", EllipseTool(self._document, self._history_manager, self._canvas))
+        self._tool_registry.register("line", LineTool(self._document, self._history_manager, self._canvas, self._pen_manager))
+        self._tool_registry.register("rect", RectTool(self._document, self._history_manager, self._canvas, self._pen_manager))
+        self._tool_registry.register("ellipse", EllipseTool(self._document, self._history_manager, self._canvas, self._pen_manager))
 
         self._tool_manager = ToolManager(self._event_bus, self._tool_registry)
 

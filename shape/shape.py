@@ -2,7 +2,7 @@ import uuid
 
 from PySide6.QtWidgets import QAbstractGraphicsShapeItem
 
-from shape.pen import Pen
+from pen.pen import Pen
 from store.serializable import Serializable
 
 

@@ -3,8 +3,8 @@ from tool.canvas_preview_tool import CanvasPreviewTool
 
 
 class TwoPointCanvasPreviewTool(CanvasPreviewTool):
-    def __init__(self, document, history_manager, canvas, tool_id):
-        super().__init__(document, history_manager, canvas, tool_id)
+    def __init__(self, document, history_manager, canvas, pen_manager, tool_id):
+        super().__init__(document, history_manager, canvas, pen_manager, tool_id)
         self._canvas = canvas
         self._first_point = None
 

@@ -1,7 +1,7 @@
 from PySide6.QtCore import QRectF, QPointF
 from PySide6.QtWidgets import QGraphicsEllipseItem
 
-from shape.pen import Pen
+from pen.pen import Pen
 from shape.point2f import Point2f
 from shape.shape import Shape
 

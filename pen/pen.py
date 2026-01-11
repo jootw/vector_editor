@@ -1,7 +1,7 @@
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPen, QColor
 
-from shape.pen_style import PenStyle
+from pen.pen_style import PenStyle
 from store.serializable import Serializable
 
 
