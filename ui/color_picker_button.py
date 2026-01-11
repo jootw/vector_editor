@@ -1,3 +1,5 @@
+# gemini-3-pro
+
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (QPushButton, QColorDialog)
@@ -12,7 +14,7 @@ class ColorPickerButton(QPushButton):
         self.setText(color_hex)
         self.clicked.connect(self._open_dialog)
         # Устанавливаем только цвет фона, остальное - по умолчанию
-        self.setStyleSheet(f"background-color: {self._color};")
+        self.setStyleSheet(f".QWidget {{ background-color: {self._color}; }}")
 
     def _open_dialog(self):
         c = QColorDialog.getColor(QColor(self._color), self)
@@ -20,5 +22,5 @@ class ColorPickerButton(QPushButton):
             hex_color = c.name()
             self._color = hex_color
             self.setText(hex_color)
-            self.setStyleSheet(f"background-color: {self._color};")
+            self.setStyleSheet(f".QWidget {{ background-color: {self._color}; }}")
             self.colorChanged.emit(hex_color)

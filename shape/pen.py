@@ -6,7 +6,7 @@ from store.serializable import Serializable
 
 
 class Pen(Serializable):
-    def __init__(self, color="#000000", width=2.0, style=PenStyle.SolidLine):
+    def __init__(self, color="#000000", width=1.0, style=PenStyle["SolidLine"]):
         self._color = color
         self._width = width
         self._style = style

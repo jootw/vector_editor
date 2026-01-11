@@ -1,5 +1,4 @@
 from shape.line_shape import LineShape
-from shape.pen import Pen
 from tool.two_point_canvas_preview_tool import TwoPointCanvasPreviewTool
 
 
@@ -9,6 +8,6 @@ class LineTool(TwoPointCanvasPreviewTool):
 
     def _get_shape(self, first_point, second_point):
         return LineShape(
-            first_point, second_point,
-            Pen("#FF0000", 3, "DashLine")
+            first_point, second_point
+            # TODO
         )

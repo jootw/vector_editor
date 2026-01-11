@@ -1,5 +1,5 @@
-from PySide6.QtCore import QRectF
-from PySide6.QtWidgets import QGraphicsLineItem, QGraphicsEllipseItem
+from PySide6.QtCore import QRectF, QPointF
+from PySide6.QtWidgets import QGraphicsEllipseItem
 
 from shape.pen import Pen
 from shape.point2f import Point2f
@@ -35,9 +35,8 @@ class EllipseShape(Shape):
 
     def _to_qt_shape(self):
         return QGraphicsEllipseItem(
-            QRectF(self._first_point, self._second_point)
-        )
-        return QGraphicsLineItem(
-            self._first_point.get_x(), self._first_point.get_y(),
-            self._second_point.get_x(), self._second_point.get_y()
+            QRectF(
+                QPointF(self._first_point.get_x(), self._first_point.get_y()),
+                QPointF(self._second_point.get_x(), self._second_point.get_y())
+            )
         )

@@ -1,7 +1,14 @@
-from tool.tool import Tool
+from shape.rect_shape import RectShape
+from tool.two_point_canvas_preview_tool import TwoPointCanvasPreviewTool
 
 
-class RectTool(Tool):
+class RectTool(TwoPointCanvasPreviewTool):
     def __init__(self, document, history_manager, canvas):
-        super().__init__(document, history_manager, "rect")
+        super().__init__(document, history_manager, canvas, "rect")
         self._canvas = canvas
+
+    def _get_shape(self, first_point, second_point):
+        return RectShape(
+            first_point, second_point
+            # TODO
+        )
